@@ -3,7 +3,7 @@
     <h3>Dishes</h3>
     <ul>
       <em v-if='status === "INITIAL"'>Loading...</em>
-      <b v-else-if='status === "ERROR"'>Failed to load data, please try again</b>
+      <at-alert v-else-if='status === "ERROR"' message="Failed to load data, please try again~" type="error"></at-alert>
       <li v-for="dish in dishes" :id="dish.id" :key="dish.id">
         {{ dish.title }}
       </li>
@@ -28,6 +28,7 @@
         this.dishes = dishes.results
       }).catch(() => {
         this.status = 'ERROR'
+        this.$Message.error('This is a error message!')
       })
     },
     data() {

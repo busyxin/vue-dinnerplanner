@@ -5,7 +5,7 @@
     </p>
 
     <router-link to="/search">
-      <button>Start planning</button>
+      <at-button type="primary" size="large">Start planning</at-button>
     </router-link>
   </div>
 </template>
@@ -20,10 +20,6 @@
   }
 </script>
 
-<!-- Example of styling Vue components -->
-<!-- With the scoped attribute, CSS will apply to elements of the current component only -->
 <style scoped>
-  button {
-    color: blue;
-  }
+
 </style>

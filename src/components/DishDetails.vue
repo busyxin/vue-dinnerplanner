@@ -1,23 +1,21 @@
 <template>
   <div class="select-dish">
-    <h2>This is the Select Dish screen</h2>
+    <h2>This is the DishDetails screen</h2>
     <sidebar :model="this.model"/>
-    <searchbar/>
-    <dishes/>
+    <router-link to="/search">
+      <at-button>Go back</at-button>
+    </router-link>
   </div>
 </template>
 
 <script>
   import Sidebar from '@/components/Sidebar'
-  import Searchbar from '@/components/Searchbar'
   import Dishes from '@/components/Dishes'
 
   export default {
     props: ['model'],
     components: {
       'sidebar': Sidebar,
-      'searchbar': Searchbar,
-      'dishes': Dishes
     }
   }
 </script>
