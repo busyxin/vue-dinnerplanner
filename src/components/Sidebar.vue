@@ -8,16 +8,21 @@
       Total number of guests: {{ numberOfGuests }}
     </p>
 
-    <at-popover placement="top" v-model="show" @toggle="toggleShow">
-      <at-button size="small"><i class="icon icon-trash"></i></at-button>
-      <template slot="content">
-        <p>This is part of the content, sure to delete it?</p>
-        <div style="text-align: right; margin-top: 8px;">
-          <at-button size="smaller" @click="show = false">Cancel</at-button>
-          <at-button type="primary" size="smaller" @click="show = false">Sure</at-button>
-        </div>
-      </template>
-    </at-popover>
+    <ul>
+      <li class="dish" v-for="dish in menu" :id="dish.id" :key="dish.id">
+        {{dish.title}}
+        <at-popover placement="top" v-model="showPopover" @toggle="togglePopover">
+          <at-button size="small"><i class="icon icon-trash"></i></at-button>
+          <template slot="content">
+            <p>Remove {{dish.title}} from your menu?</p>
+            <div style="text-align: right; margin-top: 8px;">
+              <at-button size="smaller" @click="showPopover = false">Cancel</at-button>
+              <at-button type="primary" size="smaller" @click="_ => removeDish(dish.id)">Remove from menu</at-button>
+            </div>
+          </template>
+        </at-popover>
+      </li>
+    </ul>  
 
     <router-link to="/summary">
       <at-button type="primary" size="large">Confirm dinner</at-button>
@@ -38,22 +43,29 @@
 
     data() {
       return {
-        show: false,
-        numberOfGuests: this.model.getNumberOfGuests()
+        showPopover: false,
+        numberOfGuests: this.model.getNumberOfGuests(),
+        menu: this.model.getMenu()
       }
     },
 
     methods: {
       update() {
         this.numberOfGuests = this.model.getNumberOfGuests()
+        this.menu = this.model.getMenu()
       },
 
-      toggleShow() {
-        this.show = !this.show
+      togglePopover() {
+        this.showPopover = !this.showPopover
       },
 
-      onDidChangeNumberOfGuests(e) {
-        this.model.setNumberOfGuests(+e.target.value)
+      removeDish(dishId) {
+        this.showPopover = false
+        this.model.removeDishFromMenu(dishId)
+      },
+
+      onDidChangeNumberOfGuests(value) {
+        this.model.setNumberOfGuests(value)
       }
     }
   }

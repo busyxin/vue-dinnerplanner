@@ -2,7 +2,7 @@
   <div class="print">
     <h2>This is the Print screen</h2>
     <sidebar :model="this.model"/>
-    <dishes />
+    <dishes/>
   </div>
 </template>
 

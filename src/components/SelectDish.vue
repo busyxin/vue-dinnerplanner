@@ -2,21 +2,18 @@
   <div class="select-dish">
     <h2>This is the Select Dish screen</h2>
     <sidebar :model="this.model"/>
-    <searchbar/>
-    <dishes/>
+    <dishes :model="this.model"/>
   </div>
 </template>
 
 <script>
   import Sidebar from '@/components/Sidebar'
-  import Searchbar from '@/components/Searchbar'
   import Dishes from '@/components/Dishes'
 
   export default {
     props: ['model'],
     components: {
       'sidebar': Sidebar,
-      'searchbar': Searchbar,
       'dishes': Dishes
     }
   }
