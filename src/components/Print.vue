@@ -1,8 +1,19 @@
 <template>
-  <div class="print">
-    <h2>This is the Print screen</h2>
-    <sidebar :model="this.model"/>
-    <dishes/>
+  <div class="print section-container">
+    <ul class="dish-list">
+      <li class="dish" v-for="dish in dishes" :id="dish.id" :key="dish.id">
+        <router-link :to="{ name: 'DishDetails', params: { dishId: dish.id }}">
+          <at-card class="dish" :body-style="{ padding: 0 }">
+            <div>
+              <img class="dish__img" :src="dish.image">
+              <div class="dish__caption">
+                <p>{{ dish.title }}</p>
+              </div>
+            </div>
+          </at-card>
+        </router-link>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -14,7 +25,11 @@
     props: ['model'],
     components: {
       'dishes': Dishes,
-      'sidebar': Sidebar
+    },
+    data: function() {
+      return {
+        dishes: this.model.getMenu()
+      }
     }
   }
 </script>

@@ -1,6 +1,5 @@
 <template>
-  <div class="select-dish">
-    <h2>This is the DishDetails screen</h2>
+  <div class="dish-details section-container">
     <sidebar :model="this.model"/>
     <router-link to="/search">
       <at-button>Go back</at-button>
@@ -39,8 +38,6 @@
       }
     },
     mounted() {
-      // when data is retrieved we update it's properties
-      // this will cause the component to re-render
       modelInstance.getDish(this.$route.params.dishId).then(dish => {
         this.dish = dish
         this.status =  'LOADED'

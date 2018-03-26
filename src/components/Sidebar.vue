@@ -1,13 +1,7 @@
 <template>
-  <div class="sidebar">
-    <h3>This is the sidebar</h3>
-    <p>
-      People: 
-      <at-input-number class="guest-input" :value="numberOfGuests" @input="onDidChangeNumberOfGuests" @change="onDidChangeNumberOfGuests" :min="1" size="large"></at-input-number>
-      <br/>
-      Total number of guests: {{ numberOfGuests }}
-    </p>
-
+  <div class="sidebar panel">
+    <h3>Number of guests:</h3>
+    <at-input-number class="guest-input" :value="numberOfGuests" @input="onDidChangeNumberOfGuests" @change="onDidChangeNumberOfGuests" :min="1" size="large"></at-input-number>
     <ul>
       <li class="dish" v-for="dish in menu" :id="dish.id" :key="dish.id">
         {{dish.title}}
@@ -24,7 +18,7 @@
       </li>
     </ul>  
 
-    <router-link to="/summary">
+    <router-link v-if='menu.length !== 0' to="/summary">
       <at-button type="primary" size="large">Confirm dinner</at-button>
     </router-link>
   </div>
@@ -72,6 +66,12 @@
 </script>
 
 <style scoped>
+  .sidebar {
+    max-width: 250px;
+    margin-right: 1rem;
+    padding: 1rem;
+    flex: 1 0 auto;
+  }
   .guest-input {
     max-width: 50px;
   }

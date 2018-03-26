@@ -1,6 +1,5 @@
 <template>
-  <div class="select-dish">
-    <h2>This is the Select Dish screen</h2>
+  <div class="select-dish section-container">
     <sidebar :model="this.model"/>
     <dishes :model="this.model"/>
   </div>
@@ -18,3 +17,9 @@
     }
   }
 </script>
+
+<style scoped>
+  .select-dish {
+    display: flex;
+  }
+</style>
