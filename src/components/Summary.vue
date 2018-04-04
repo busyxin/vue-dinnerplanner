@@ -2,17 +2,15 @@
   <div class="summary section-container">
     <ul class="dish-list">
       <li class="dish" v-for="dish in dishes" :id="dish.id" :key="dish.id">
-        <router-link :to="{ name: 'DishDetails', params: { dishId: dish.id }}">
-          <at-card class="dish" :body-style="{ padding: 0 }">
-            <div>
-              <img class="dish__img" :src="dish.image">
-              <div class="dish__caption">
-                <p>{{ dish.title }}</p>
-                <p>{{ dish.pricePerServing * numberOfGuests }}</p>
-              </div>
+        <at-card :body-style="{ padding: 0 }">
+          <div>
+            <img class="dish__img" :src="dish.image">
+            <div class="dish__caption">
+              <p>{{ dish.title }}</p>
+              <p>{{ Number(dish.pricePerServing * numberOfGuests).toFixed(2) }} SEK</p>
             </div>
-          </at-card>
-        </router-link>
+          </div>
+        </at-card>
       </li>
     </ul>
     <router-link to="/print">
@@ -39,3 +37,30 @@
     }
   }
 </script>
+
+<style scoped>
+  .summary {
+    flex-direction: column;
+    justify-content: center;
+    flex: 1 0 auto;
+    align-items: center;
+  }
+
+  .dish-list {
+    display: flex;
+  }
+
+  .dish {
+    max-width: 200px;
+    margin: 0 .5rem 1rem;
+  }
+
+  .dish__img {
+    max-width: 200px;
+  }
+
+  .dish__caption {
+    padding: 1rem;
+    font-weight: 700;
+  }
+</style>

@@ -14,7 +14,7 @@
         <h3>Cooking time: {{ dish.cookingMinutes }} minutes</h3>
         <h3>Ready in {{ dish.readyInMinutes }} minutes</h3>
         <h3>Servings: {{ dish.servings }}</h3>
-        <h3>Price per serving: {{ dish.pricePerServing }}</h3>
+        <h3>Price per serving: {{ dish.pricePerServing }} SEK</h3>
         <h3>Preparation</h3>
         <p>{{ dish.instructions }}</p>
         <at-button v-on:click="addToMenu" type="primary" icon="icon-menu">Add to Menu</at-button>
