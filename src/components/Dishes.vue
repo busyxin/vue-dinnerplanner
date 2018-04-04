@@ -1,9 +1,9 @@
 <template>
   <div class="dishes">
     <div class="filter panel">
-      <h3>Find the recipes for your perfect dinner</h3>
+      <h3 class="filter__header">Find the recipes for your perfect dinner</h3>
       <form v-on:submit="submit" class="filter-inline">
-        <at-select v-model="selectValue" size="large" style="width: 100px">
+        <at-select class="filter__select" v-model="selectValue" size="large">
           <at-option value="all">All</at-option>
           <at-option value="breakfast">Breakfast</at-option>
           <at-option value="appetizer">Appetizer</at-option>
@@ -16,8 +16,8 @@
           <at-option value="drink">Drink</at-option>
           <at-option value="beverage">Beverage</at-option>
         </at-select>
-        <at-input v-model="inputValue" size="large" placeholder="Search for a recipe"></at-input>
-        <at-button v-on:click="submit" type="primary" icon="icon-search">Search</at-button>
+        <at-input class="filter__search" v-model="inputValue" size="large" placeholder="Search for a recipe"></at-input>
+        <at-button class="filter__submit" v-on:click="submit" type="primary" icon="icon-search">Search</at-button>
       </form>
     </div>
     <div class="panel">
@@ -103,12 +103,35 @@
   }
 
   .filter {
-    margin-bottom: 1rem;
     flex: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0;
+  }
+
+  .filter__header {
+    margin-bottom: 1rem;
   }
 
   .filter-inline {
     display: flex;
+    flex-wrap: wrap;
+  }
+
+  .filter__select {
+    width: 150px;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .filter__search {
+    max-width: 300px;
+    width: 100%;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  .filter__submit {
+    margin-bottom: 1rem;
   }
 
   .dish-list {

@@ -30,6 +30,7 @@
 
   export default {
     props: ['model'],
+
     components: {
       'sidebar': Sidebar,
     },
@@ -66,11 +67,7 @@
       addToMenu: function() {
         this.model.addDishToMenu(this.dish)
       },
-      includedToMenu: function() {
-
-      },
       goBack: function() {
-        console.log(this.$router)
         this.$router.go(-1)
       }
     }

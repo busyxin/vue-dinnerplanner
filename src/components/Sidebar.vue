@@ -2,6 +2,8 @@
   <div class="sidebar panel">
     <h3>Number of guests:</h3>
     <at-input-number class="guest-input" :value="numberOfGuests" @input="onDidChangeNumberOfGuests" @change="onDidChangeNumberOfGuests" :min="1" size="large"></at-input-number>
+    <h3>Menu:</h3>
+    <p v-if='menu.length === 0'>No dishes added yet</p>
     <ul>
       <li class="dish" v-for="dish in menu" :id="dish.id" :key="dish.id">
         {{dish.title}}
@@ -16,7 +18,7 @@
           </template>
         </at-popover>
       </li>
-    </ul>  
+    </ul>
 
     <router-link v-if='menu.length !== 0' to="/summary">
       <at-button type="primary" size="large">Confirm dinner</at-button>
@@ -73,7 +75,16 @@
     flex: 1 0 auto;
     height: 100%;
   }
+
   .guest-input {
     max-width: 50px;
   }
+
+  .dish {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .5rem;
+  }
+
+
 </style>
