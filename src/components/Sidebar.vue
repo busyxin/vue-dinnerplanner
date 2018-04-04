@@ -71,6 +71,7 @@
     margin-right: 1rem;
     padding: 1rem;
     flex: 1 0 auto;
+    height: 100%;
   }
   .guest-input {
     max-width: 50px;

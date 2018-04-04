@@ -2,17 +2,23 @@
   <div class="dishes">
     <div class="filter panel">
       <h3>Find the recipes for your perfect dinner</h3>
-      <div class="filter-inline">
+      <form v-on:submit="submit" class="filter-inline">
         <at-select v-model="selectValue" size="large" style="width: 100px">
           <at-option value="all">All</at-option>
-          <at-option value="2">Appetizer</at-option>
-          <at-option value="3">Main Course</at-option>
-          <at-option value="4">Side Dish</at-option>
-          <at-option value="5">Dessert</at-option>
+          <at-option value="breakfast">Breakfast</at-option>
+          <at-option value="appetizer">Appetizer</at-option>
+          <at-option value="main course">Main Course</at-option>
+          <at-option value="side dish">Side Dish</at-option>
+          <at-option value="salad">Salad</at-option>
+          <at-option value="bread">Bread</at-option>
+          <at-option value="soup">Soup</at-option>
+          <at-option value="sauce">Sauce</at-option>
+          <at-option value="drink">Drink</at-option>
+          <at-option value="beverage">Beverage</at-option>
         </at-select>
         <at-input v-model="inputValue" size="large" placeholder="Search for a recipe"></at-input>
         <at-button v-on:click="submit" type="primary" icon="icon-search">Search</at-button>
-      </div>
+      </form>
     </div>
     <div class="panel">
       <em v-if='status === "INITIAL"'>Loading...</em>
@@ -37,21 +43,15 @@
 
 <script>
 
-  import { modelInstance } from "../data/DinnerModel";
+  import { modelInstance } from "../data/DinnerModel"
 
   export default {
     props: ['model'],
-    mounted() {
-      modelInstance.getAllDishes().then(dishes => {
-        this.status = 'LOADED'
-        this.dishes = dishes.results
-        this.model.pushRequest(['lalla'])
 
-      }).catch(() => {
-        this.status = 'ERROR'
-        this.$Message.error('This is a error message!')
-      })
+    mounted() {
+      this.loadData()
     },
+
     data() {
       return {
         status: 'INITIAL',
@@ -60,21 +60,36 @@
         inputValue: '',
       }
     },
-    methods: {
-      update() {
-        this.dishes = this.model.getResultDishes()
-      },
-      submit() {
-        this.status = 'INITIAL';
 
-        this.model.getAllDishes(this.selectValue, this.inputValue).then(dishes => {
-          this.status = 'LOADED';
-          this.dishes = dishes.results;
-          this.model.pushRequest(['lalla']);
+    watch: {
+      '$route': 'loadData'
+    },
+
+    methods: {
+      loadData() {
+        const {dishtype, search} = this.$route.query
+        this.selectValue = dishtype || 'all'
+        this.inputValue = search
+
+        modelInstance.getAllDishes(this.selectValue, this.inputValue).then(dishes => {
+          this.status = 'LOADED'
+          this.dishes = dishes.results
+
         }).catch(() => {
           this.status = 'ERROR'
-          this.$Message.error('This is a error message!')
+          this.$Message.error("The dishes couldn't be loaded, please try again.")
         })
+      },
+      submit() {
+        const {dishtype, search} = this.$route.query
+
+        if (dishtype !== this.selectValue || search !== this.inputValue) {
+          this.status = 'INITIAL'
+          this.$router.push({ path: 'search', query: {
+            dishtype: this.selectValue,
+            search: this.inputValue
+          }})
+        }
       }
     }
   }
@@ -89,6 +104,7 @@
 
   .filter {
     margin-bottom: 1rem;
+    flex: 0;
   }
 
   .filter-inline {
@@ -98,8 +114,11 @@
   .dish-list {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     margin: 0 -1rem;
+  }
+
+  .dish-item {
+    margin-bottom: 1rem;
   }
 
   .dish {
@@ -126,5 +145,6 @@
 
   .dish__caption {
     padding: 1rem;
+    font-weight: 700;
   }
 </style>
