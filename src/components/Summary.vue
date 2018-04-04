@@ -1,5 +1,5 @@
 <template>
-  <div class="summary section-container">
+  <div class="summary section-container panel">
     <ul class="dish-list">
       <li class="dish" v-for="dish in dishes" :id="dish.id" :key="dish.id">
         <at-card :body-style="{ padding: 0 }">
